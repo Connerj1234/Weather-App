@@ -12,6 +12,11 @@ class WeatherApp(QWidget):
         self.temperature_label = QLabel(self)
         self.emoji_label = QLabel(self)
         self.description_label = QLabel(self)
+
+        self.setFixedSize(400, 570)
+        self.get_weather_button.setFixedSize(360, 45)
+        self.city_input.setFixedSize(360, 55)
+
         self.initUI()
 
     def initUI(self):
@@ -33,8 +38,7 @@ class WeatherApp(QWidget):
         self.temperature_label.setAlignment(Qt.AlignCenter)
         self.description_label.setAlignment(Qt.AlignCenter)
 
-        self.city_input.setMinimumHeight(50)  
-        self.get_weather_button.setMinimumHeight(45)     
+           
 
         self.city_label.setObjectName("city_label")
         self.city_input.setObjectName("city_input")
@@ -68,7 +72,7 @@ class WeatherApp(QWidget):
                 font-size: 65px;
             }
             QLabel#emoji_label{
-                font-size: 100px;
+                font-size: 90px;
             }
             QLabel#description_label{
                 font-size: 50px;

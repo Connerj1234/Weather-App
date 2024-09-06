@@ -33,7 +33,8 @@ class WeatherApp(QWidget):
         self.temperature_label.setAlignment(Qt.AlignCenter)
         self.description_label.setAlignment(Qt.AlignCenter)
 
-        
+        self.city_input.setMinimumHeight(50)  
+        self.get_weather_button.setMinimumHeight(45)     
 
         self.city_label.setObjectName("city_label")
         self.city_input.setObjectName("city_input")
@@ -44,7 +45,8 @@ class WeatherApp(QWidget):
 
         self.setStyleSheet(""" 
             QLabel, QPushButton{
-                font-family: Calibri;
+                font-family: arial;
+                color: white;
             }
             QLabel#city_label{
                 font-size: 40px;
@@ -52,16 +54,21 @@ class WeatherApp(QWidget):
             }
             QLineEdit#city_input{
                 font-size: 40px;
+                border: 1.5px solid white;
+                border-radius: 10px;
+                background-color: black;
             }
             QPushButton#get_weather_button{
                 font-size: 30px;
+                border: 1.5px solid white;
+                border-radius: 10px;
+                background-color: black;
             }
             QLabel#temperature_label{
                 font-size: 65px;
             }
             QLabel#emoji_label{
                 font-size: 100px;
-                font-family: Segoe UI emoji;
             }
             QLabel#description_label{
                 font-size: 50px;

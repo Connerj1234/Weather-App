@@ -1,6 +1,6 @@
 import sys
 import requests
-from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout)
+from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QRadioButton)
 from PyQt5.QtCore import Qt
 
 import config
@@ -14,6 +14,8 @@ class WeatherApp(QWidget):
         self.temperature_label = QLabel(self)
         self.emoji_label = QLabel(self)
         self.description_label = QLabel(self)
+        self.celsius_radio = QRadioButton("Celsius", self)
+        self.fahrenheit_radio = QRadioButton("Fahrenheit", self)
 
         self.setFixedSize(400, 570)
         self.get_weather_button.setFixedSize(360, 45)
@@ -39,9 +41,9 @@ class WeatherApp(QWidget):
         self.emoji_label.setAlignment(Qt.AlignCenter)
         self.temperature_label.setAlignment(Qt.AlignCenter)
         self.description_label.setAlignment(Qt.AlignCenter)
-
-           
-
+        self.celsius_radio.setGeometry(10, 200, 100, 100)
+        self.fahrenheit_radio.setGeometry(10, 220, 100, 100)
+        
         self.city_label.setObjectName("city_label")
         self.city_input.setObjectName("city_input")
         self.get_weather_button.setObjectName("get_weather_button")
@@ -50,9 +52,12 @@ class WeatherApp(QWidget):
         self.description_label.setObjectName("description_label")
 
         self.setStyleSheet(""" 
-            QLabel, QPushButton{
+            QLabel, QPushButton, QRadioButton{
                 font-family: arial;
                 color: white;
+            }
+            QRadioButton{
+                font-size: 15px;
             }
             QLabel#city_label{
                 font-size: 40px;

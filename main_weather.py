@@ -17,7 +17,11 @@ class WeatherApp(QWidget):
         self.celsius_radio = QRadioButton("Celsius", self)
         self.fahrenheit_radio = QRadioButton("Fahrenheit", self)
 
-        self.setFixedSize(400, 570)
+        self.celsius_radio.setChecked(False)
+        self.fahrenheit_radio.setChecked(True)
+
+
+        self.setFixedSize(400, 670)
         self.get_weather_button.setFixedSize(360, 45)
         self.city_input.setFixedSize(360, 55)
 
@@ -41,8 +45,8 @@ class WeatherApp(QWidget):
         self.emoji_label.setAlignment(Qt.AlignCenter)
         self.temperature_label.setAlignment(Qt.AlignCenter)
         self.description_label.setAlignment(Qt.AlignCenter)
-        self.celsius_radio.setGeometry(10, 200, 100, 100)
-        self.fahrenheit_radio.setGeometry(10, 220, 100, 100)
+        self.celsius_radio.setGeometry(230, 1, 100, 100)
+        self.fahrenheit_radio.setGeometry(70, 1, 100, 100)
         
         self.city_label.setObjectName("city_label")
         self.city_input.setObjectName("city_input")
@@ -62,6 +66,7 @@ class WeatherApp(QWidget):
             QLabel#city_label{
                 font-size: 40px;
                 font-weight: bold;
+                padding-top: 70px;
             }
             QLineEdit#city_input{
                 font-size: 40px;
@@ -145,7 +150,10 @@ class WeatherApp(QWidget):
         weather_id = data["weather"][0]["id"]
         weather_description = data["weather"][0]["description"]
         
-        self.temperature_label.setText(f"{temperature_f:.1f}°F")
+        if self.fahrenheit_radio.isChecked():
+            self.temperature_label.setText(f"{temperature_f:.1f}°F")
+        else:
+            self.temperature_label.setText(f"{temperature_c:.1f}°C")
         self.description_label.setText(f"{weather_description}")
         self.emoji_label.setText(self.get_weather_emoji(weather_id))
 

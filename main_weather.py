@@ -1,7 +1,7 @@
 import sys
 import requests
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QRadioButton)
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTime, QTimer
 
 import config
 
@@ -16,6 +16,9 @@ class WeatherApp(QWidget):
         self.description_label = QLabel(self)
         self.celsius_radio = QRadioButton("Celsius", self)
         self.fahrenheit_radio = QRadioButton("Fahrenheit", self)
+
+        self.time_label = QLabel(self)
+        self.timer = QTimer(self)
 
         self.celsius_radio.setChecked(False)
         self.fahrenheit_radio.setChecked(True)
@@ -37,6 +40,8 @@ class WeatherApp(QWidget):
         vbox.addWidget(self.temperature_label)
         vbox.addWidget(self.emoji_label)
         vbox.addWidget(self.description_label)
+        vbox.addWidget(self.time_label)
+
 
         self.setLayout(vbox)
 
@@ -47,6 +52,7 @@ class WeatherApp(QWidget):
         self.description_label.setAlignment(Qt.AlignCenter)
         self.celsius_radio.setGeometry(230, 1, 100, 100)
         self.fahrenheit_radio.setGeometry(70, 1, 100, 100)
+        self.time_label.setAlignment(Qt.AlignCenter)
         
         self.city_label.setObjectName("city_label")
         self.city_input.setObjectName("city_input")
@@ -54,6 +60,7 @@ class WeatherApp(QWidget):
         self.temperature_label.setObjectName("temperature_label")
         self.emoji_label.setObjectName("emoji_label")
         self.description_label.setObjectName("description_label")
+        self.time_label.setObjectName("time_label")
 
         self.setStyleSheet(""" 
             QLabel, QPushButton, QRadioButton{
@@ -62,6 +69,9 @@ class WeatherApp(QWidget):
             }
             QRadioButton{
                 font-size: 15px;
+            }
+            QLabel#time_label{
+                font-size: 30px;
             }
             QLabel#city_label{
                 font-size: 40px;
@@ -92,6 +102,10 @@ class WeatherApp(QWidget):
         """)
         
         self.get_weather_button.clicked.connect(self.get_weather)
+
+        self.timer.timeout.connect(self.update_time)
+        self.timer.start(1000)
+        self.update_time()
 
     def get_weather(self):
         api_key = config.api
@@ -177,6 +191,11 @@ class WeatherApp(QWidget):
             return "☀️"
         elif 801 <= weather_id <= 804:
             return "☁️"
+
+    def update_time(self):
+        current_time = QTime.currentTime().toString("hh:mm:ss AP")
+        self.time_label.setText(current_time)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
